@@ -1,4 +1,4 @@
-source "proxmox" "ubuntu" {
+source "proxmox-iso" "ubuntu" {
   proxmox_url              = "https://${var.proxmox_host}:${var.proxmox_port}/api2/json"
   node                     = var.proxmox_node
   username                 = var.proxmox_username
@@ -14,6 +14,7 @@ source "proxmox" "ubuntu" {
   iso_storage_pool = var.iso_storage_pool
   iso_file         = local.use_iso_file ? "${var.iso_storage_pool}:iso/${var.iso_file}" : null
   iso_checksum     = var.iso_checksum
+  iso_download_pve = var.proxmox_download_iso
   unmount_iso      = true
 
   os         = "l26"
@@ -22,11 +23,12 @@ source "proxmox" "ubuntu" {
   cores      = var.cores
   sockets    = var.sockets
 
-  scsi_controller = "virtio-scsi-pci"
+  scsi_controller = "virtio-scsi-single"
 
   network_adapters {
-    model  = "virtio"
-    bridge = var.network_bridge
+    model    = "virtio"
+    bridge   = var.network_bridge
+    vlan_tag = var.network_vlan_tag
   }
 
   disks {

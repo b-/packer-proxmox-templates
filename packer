@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+set -euxo pipefail
+DOCKER="${DOCKER:-docker}" # or podman
+FLAGS=(
+    --rm
+    -it
+    -v .:/work:z
+    -v "${HOME}/.config/packer:/root/.config/packer:z" # for init
+    --network host # so it can determine its IP address
+    --workdir /work
+)
+IMAGE="${IMAGE:-docker.io/hashicorp/packer:latest}"
+
+# make .config/packer in case it doesn't already exist
+mkdir -p "${HOME}"/.config/packer
+
+exec "${DOCKER}" run "${FLAGS[@]}" "${IMAGE}" "$@"

@@ -155,10 +155,20 @@ variable "sockets" {
   default     = 1
 }
 
+variable "proxmox_download_iso" {
+  type        = bool
+  description = "Whether to download the ISO directly to the PVE host (true), or to first download to the Packer host and then upload to PVE (false)"
+  default     = true
+}
+
 variable "iso_url" {
   type        = string
   description = "URL to an ISO file to upload to Proxmox, and then boot from."
+<<<<<<< Updated upstream
   default     = "https://www.releases.ubuntu.com/22.04/ubuntu-22.04.3-live-server-amd64.iso"
+=======
+  default     = "https://releases.ubuntu.com/22.04/ubuntu-22.04.3-live-server-amd64.iso"
+>>>>>>> Stashed changes
 }
 
 variable "iso_storage_pool" {
@@ -170,7 +180,11 @@ variable "iso_storage_pool" {
 variable "iso_file" {
   type        = string
   description = "Filename of the ISO file to boot from."
+<<<<<<< Updated upstream
   default     = null
+=======
+  default     = null //"ubuntu-22.04.3-live-server-amd64.iso"
+>>>>>>> Stashed changes
 }
 
 variable "iso_checksum" {
@@ -213,6 +227,12 @@ variable "network_bridge" {
   type        = string
   description = "The Proxmox network bridge to use for the network interface."
   default     = "vmbr0"
+}
+
+variable "network_vlan_tag" {
+  type        = number
+  description = "VLAN tag for VM interface"
+  default     = null
 }
 
 variable "cloud_init_storage_pool" {

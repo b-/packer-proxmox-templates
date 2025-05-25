@@ -1,0 +1,4 @@
+source "file" "build" {
+  source = "${path.root}/templates/build.pkr.pkrtpl.hcl"
+  target = "${path.root}/build.pkr.hcl"
+}
